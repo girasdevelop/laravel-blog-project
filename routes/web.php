@@ -1,5 +1,7 @@
 <?php
 
+use \Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,4 +48,30 @@ Route::group(['prefix' => 'posts'], function () {
     Route::get('/publish/{post}', 'PostController@publish')
         ->name('publish_post')
         ->middleware('can:publish-post');
+});
+
+/*
+ * Admin section
+ */
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+
+    Route::group(['prefix' => 'roles'], function () {
+
+        Route::get('/', 'RoleController@index')
+            ->name('list_roles');
+
+        Route::get('create', 'RoleController@create')
+            ->name('create_roles');
+
+        Route::post('create', 'RoleController@store')
+            ->name('create_roles');
+
+        Route::get('/edit/{role}', 'RoleController@edit')
+            ->name('edit_role')
+            ->middleware('can:update-role,role');
+
+        Route::post('/edit/{role}', 'RoleController@update')
+            ->name('update_role')
+            ->middleware('can:update-role,role');
+    });
 });
