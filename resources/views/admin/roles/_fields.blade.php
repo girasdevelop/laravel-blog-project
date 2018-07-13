@@ -21,3 +21,25 @@
         </span>
     @endif
 </div>
+
+<div class="form-group{{ $errors->has('permissions') ? ' has-error' : '' }}">
+    <div class="container">
+        <div class="row">
+            <label class="col-md-4 control-label">Permissions</label>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            @foreach($permissions as $id => $name)
+                <input type="checkbox" name="permissions[]" value="{{ $id }}">{{ $name }}<br>
+            @endforeach
+        </div>
+    </div>
+
+    @if ($errors->has('permissions'))
+        <span class="help-block">
+            <strong>{{ $errors->first('permissions') }}</strong>
+        </span>
+    @endif
+</div>
