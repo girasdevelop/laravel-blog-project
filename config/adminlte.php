@@ -114,6 +114,11 @@ return [
             'icon' => 'fa fa-user-circle-o',
             'url'  => '/admin/roles',
         ],
+        [
+            'text' => 'Permissions',
+            'icon' => 'fa fa-user-secret',
+            'url'  => '/admin/permissions',
+        ],
     ],
 
     /*

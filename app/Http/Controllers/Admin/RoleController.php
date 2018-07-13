@@ -12,6 +12,10 @@ use Auth;
 use Gate;
 use App\Role;
 
+/**
+ * Class RoleController
+ * @package App\Http\Controllers\Admin
+ */
 class RoleController extends Controller
 {
     /**
@@ -43,11 +47,9 @@ class RoleController extends Controller
         $data['slug'] = str_slug($data['name']);
         $data['permissions'] = json_encode($data['permissions']);
 
-        $role = Role::create($data);
+        Role::create($data);
 
-        return redirect()->route('edit_role', [
-            'id' => $role->id
-        ]);
+        return redirect()->route('list_roles');
     }
 
     /**
@@ -72,7 +74,9 @@ class RoleController extends Controller
 
         $role->fill($data)->save();
 
-        return redirect()->route('list_roles');
+        return redirect()->route('show_role', [
+            'id' => $role->id
+        ]);
     }
 
     /**
@@ -81,7 +85,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::published()->findOrFail($id);
+        $role = Role::findOrFail($id);
 
         return view('admin.roles.show', compact('role'));
     }

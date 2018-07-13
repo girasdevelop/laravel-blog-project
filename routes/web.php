@@ -78,4 +78,28 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::post('/delete/{role}', 'RoleController@delete')
             ->name('delete_role');
     });
+
+    Route::group(['prefix' => 'permissions'], function () {
+
+        Route::get('/', 'PermissionController@index')
+            ->name('list_permissions');
+
+        Route::get('/show/{id}', 'PermissionController@show')
+            ->name('show_permission');
+
+        Route::get('/create', 'PermissionController@create')
+            ->name('create_permission');
+
+        Route::post('/store', 'PermissionController@store')
+            ->name('store_permission');
+
+        Route::get('/edit/{permission}', 'PermissionController@edit')
+            ->name('edit_permission');
+
+        Route::post('/update/{permission}', 'PermissionController@update')
+            ->name('update_permission');
+
+        Route::post('/delete/{permission}', 'PermissionController@delete')
+            ->name('delete_permission');
+    });
 });
