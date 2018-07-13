@@ -1,37 +1,47 @@
+@section('title', 'Roles')
 @extends('adminlte::page')
-
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Posts
-                        @can('create-role')
-                            <a class="pull-right btn btn-sm btn-primary" href="{{ route('create_role') }}">New</a>
-                        @endcan
-                    </div>
 
-                    <div class="panel-body">
-                        <div class="row">
-                            @foreach($roles as $role)
-                                <div class="col-sm-6 col-md-4">
-                                    <div class="thumbnail">
-                                        <div class="caption">
-                                            <h3><a href="{{ route('edit_role', ['id' => $role->id]) }}">{{ $role->name }}</a></h3>
-                                            @can('update-role', $role)
-                                                <p>
-                                                    <a href="{{ route('edit_role', ['id' => $role->id]) }}" class="btn btn-sm btn-default" role="button">Edit</a>
-                                                </p>
-                                            @endcan
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="content container-fluid">
+        <div class="role-index">
+
+            <p><a class="btn btn-success" href="{{ route('create_role') }}">Create role</a></p>
+
+            <table class="table table-striped table-bordered"><thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="action-column">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($roles as $role)
+                        <tr data-key="admin">
+                            <td>
+                                <a href="{{ route('show_role', ['id' => $role->id]) }}">{{ $role->name }}</a>
+                            </td>
+                            <td>
+                                {{ $role->description }}
+                            </td>
+                            <td>
+                                <a href="{{ route('show_role', ['id' => $role->id]) }}" title="View" aria-label="View" data-pjax="0">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </a>
+                                <a href="{{ route('edit_role', ['id' => $role->id]) }}" title="Edit" aria-label="Edit" data-pjax="0">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a href="{{ route('delete_role', ['id' => $role->id]) }}" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" data-method="post">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            {{ $roles->links() }}
+
         </div>
-    </div>
+    </section>
+
 @endsection

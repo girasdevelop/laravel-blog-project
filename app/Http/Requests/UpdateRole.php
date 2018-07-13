@@ -27,7 +27,17 @@ class UpdateRole extends FormRequest
         $id = $this->route('role')->id;
         return [
             'name' => [
-                'required|string|min:3|max:191',
+                'required',
+                'string',
+                'min:3',
+                'max:191',
+                Rule::unique('roles')->where('id', '<>', $id),
+            ],
+            'description' => [
+                'required',
+                'string',
+                'min:3',
+                'max:191',
                 Rule::unique('roles')->where('id', '<>', $id),
             ],
             'permissions' => 'required|array',

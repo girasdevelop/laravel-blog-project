@@ -53,25 +53,29 @@ Route::group(['prefix' => 'posts'], function () {
 /*
  * Admin section
  */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:administrate']], function () {
 
     Route::group(['prefix' => 'roles'], function () {
 
         Route::get('/', 'RoleController@index')
             ->name('list_roles');
 
-        Route::get('create', 'RoleController@create')
-            ->name('create_roles');
+        Route::get('/show/{id}', 'RoleController@show')
+            ->name('show_role');
 
-        Route::post('create', 'RoleController@store')
-            ->name('create_roles');
+        Route::get('/create', 'RoleController@create')
+            ->name('create_role');
+
+        Route::post('/store', 'RoleController@store')
+            ->name('store_role');
 
         Route::get('/edit/{role}', 'RoleController@edit')
-            ->name('edit_role')
-            ->middleware('can:update-role,role');
+            ->name('edit_role');
 
-        Route::post('/edit/{role}', 'RoleController@update')
-            ->name('update_role')
-            ->middleware('can:update-role,role');
+        Route::post('/update/{role}', 'RoleController@update')
+            ->name('update_role');
+
+        Route::post('/delete/{role}', 'RoleController@delete')
+            ->name('delete_role');
     });
 });

@@ -212,6 +212,6 @@ return [
     ],
 
     'paginate' => [
-        'main' => 5,
+        'main' => 10,
     ],
 ];

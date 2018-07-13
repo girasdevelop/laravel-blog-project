@@ -39,7 +39,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        $data = $request->only('name', 'permissions');
+        $data = $request->only('name', 'description', 'permissions');
         $data['slug'] = str_slug($data['name']);
         $data['permissions'] = json_encode($data['permissions']);
 
@@ -66,25 +66,13 @@ class RoleController extends Controller
      */
     public function update(Role $role, UpdateRoleRequest $request)
     {
-        $data = $request->only('name', 'permissions');
+        $data = $request->only('name', 'description', 'permissions');
         $data['slug'] = str_slug($data['name']);
         $data['permissions'] = json_encode($data['permissions']);
 
         $role->fill($data)->save();
 
-        return back();
-    }
-
-    /**
-     * @param Role $role
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function publish(Role $role)
-    {
-        $role->published = true;
-        $role->save();
-
-        return back();
+        return redirect()->route('list_roles');
     }
 
     /**
