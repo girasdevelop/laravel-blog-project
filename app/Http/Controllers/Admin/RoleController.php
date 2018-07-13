@@ -10,7 +10,7 @@ use App\Http\Requests\{
 };
 use Auth;
 use Gate;
-use App\Role;
+use App\{Role, Permission};
 
 /**
  * Class RoleController
@@ -34,7 +34,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.roles.create');
+        $permissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
+        return view('admin.roles.create', compact('permissions'));
     }
 
     /**

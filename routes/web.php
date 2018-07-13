@@ -55,6 +55,9 @@ Route::group(['prefix' => 'posts'], function () {
  */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'can:administrate']], function () {
 
+    /**
+     * Roles
+     */
     Route::group(['prefix' => 'roles'], function () {
 
         Route::get('/', 'RoleController@index')
@@ -79,6 +82,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             ->name('delete_role');
     });
 
+    /**
+     *
+     * Permissions
+     */
     Route::group(['prefix' => 'permissions'], function () {
 
         Route::get('/', 'PermissionController@index')

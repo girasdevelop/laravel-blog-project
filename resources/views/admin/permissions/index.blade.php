@@ -1,11 +1,11 @@
-@section('title', 'Roles')
+@section('title', 'Permissions')
 @extends('adminlte::page')
 @section('content')
 
     <section class="content container-fluid">
-        <div class="role-index">
+        <div class="permission-index">
 
-            <p><a class="btn btn-success" href="{{ route('create_role') }}">Create role</a></p>
+            <p><a class="btn btn-success" href="{{ route('create_permission') }}">Create permission</a></p>
 
             <table class="table table-striped table-bordered"><thead>
                 <tr>
@@ -15,22 +15,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($roles as $role)
+                    @foreach($permissions as $permission)
                         <tr>
                             <td>
-                                <a href="{{ route('show_role', ['id' => $role->id]) }}">{{ $role->name }}</a>
+                                <a href="{{ route('show_permission', ['id' => $permission->id]) }}">{{ $permission->name }}</a>
                             </td>
                             <td>
-                                {{ $role->description }}
+                                {{ $permission->description }}
                             </td>
                             <td>
-                                <a href="{{ route('show_role', ['id' => $role->id]) }}" title="View" aria-label="View">
+                                <a href="{{ route('show_permission', ['id' => $permission->id]) }}" title="View" aria-label="View">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                 </a>
-                                <a href="{{ route('edit_role', ['id' => $role->id]) }}" title="Edit" aria-label="Edit">
+                                <a href="{{ route('edit_permission', ['id' => $permission->id]) }}" title="Edit" aria-label="Edit">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </a>
-                                <a href="{{ route('delete_role', ['id' => $role->id]) }}" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post">
+                                <a href="{{ route('delete_permission', ['id' => $permission->id]) }}" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </td>
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
 
-            {{ $roles->links() }}
+            {{ $permissions->links() }}
 
         </div>
     </section>

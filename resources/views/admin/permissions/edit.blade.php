@@ -1,18 +1,18 @@
-@section('title', 'Edit Role')
+@section('title', 'Edit Permission')
 @extends('adminlte::page')
 @section('content')
 
     <section class="content container-fluid">
-        <div class="role-edit">
+        <div class="permission-edit">
 
             <div class="row">
                 <div class="col-md-4">
 
-                    <h1>Edit Role</h1>
+                    <h1>Edit Permission</h1>
 
-                    <form action="{{ route('update_role', ['role' => $role->id]) }}" method="post">
+                    <form action="{{ route('update_permission', ['permission' => $permission->id]) }}" method="post">
 
-                        @include('admin.roles._fields')
+                        @include('admin.permissions._fields')
 
                         <button class="btn btn-primary" type="submit">Edit</button>
 
