@@ -11,10 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description', 'permissions',
-    ];
-    protected $casts = [
-        'permissions' => 'array',
+        'name', 'slug', 'description',
     ];
 
     /**
@@ -22,7 +19,15 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'role_users')->withTimestamps();
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id')->withTimestamps();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id')->withTimestamps();
     }
 
     /**
@@ -44,6 +49,7 @@ class Role extends Model
      */
     private function hasPermission(string $permission) : bool
     {
-        return $this->permissions[$permission] ?? false;
+        //return $this->permissions[$permission] ?? false;
+        return true;
     }
 }
