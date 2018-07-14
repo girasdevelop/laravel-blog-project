@@ -19,44 +19,65 @@ class RoleSeeder extends Seeder
         $deletePermissionId  = Permission::where('slug', 'delete-record')->firstOrFail()->id;
         $publishPermissionId = Permission::where('slug', 'publish-record')->firstOrFail()->id;
 
-        Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'description' => 'Administrator',
-        ])->permissions()->attach([
-            $totalPermissionId, $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
-        ]);
+        $this->createRecord(
+            'Admin',
+            'admin',
+            'Administrator',
+            [
+                $totalPermissionId, $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
+            ]
+        );
 
-        Role::create([
-            'name' => 'Editor',
-            'slug' => 'editor',
-            'description' => 'Post editor',
-        ])->permissions()->attach([
-            $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
-        ]);
+        $this->createRecord(
+            'Editor',
+            'editor',
+            'Post editor',
+            [
+                $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
+            ]
+        );
 
-        Role::create([
-            'name' => 'Manager',
-            'slug' => 'manager',
-            'description' => 'Content manager',
-        ])->permissions()->attach([
-            $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
-        ]);
+        $this->createRecord(
+            'Manager',
+            'manager',
+            'Content manager',
+            [
+                $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
+            ]
+        );
 
-        Role::create([
-            'name' => 'Author',
-            'slug' => 'author',
-            'description' => 'Post author',
-        ])->permissions()->attach([
-            $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId
-        ]);
+        $this->createRecord(
+            'Author',
+            'author',
+            'Post author',
+            [
+                $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId
+            ]
+        );
 
+        $this->createRecord(
+            'User',
+            'user',
+            'Simple user',
+            [
+                $viewPermissionId
+            ]
+        );
+    }
+
+    /**
+     * @param string $name
+     * @param string $slug
+     * @param string $description
+     * @param array $permissions
+     */
+    private function createRecord(string $name, string $slug, string $description, array $permissions)
+    {
         Role::create([
-            'name' => 'User',
-            'slug' => 'user',
-            'description' => 'Simple user',
-        ])->permissions()->attach([
-            $viewPermissionId
-        ]);
+            'name' => $name,
+            'slug' => $slug,
+            'description' => $description,
+        ])->permissions()
+            ->attach($permissions);
     }
 }

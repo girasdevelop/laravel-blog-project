@@ -43,10 +43,7 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
-        $data = $request->only('name', 'description');
-        $data['slug'] = str_slug($data['name']);
-
-        Permission::create($data);
+        Permission::create($request->all());
 
         return redirect()->route('list_permissions');
     }
@@ -67,10 +64,7 @@ class PermissionController extends Controller
      */
     public function update(Permission $permission, UpdatePermissionRequest $request)
     {
-        $data = $request->only('name', 'description');
-        $data['slug'] = str_slug($data['name']);
-
-        $permission->fill($data)->save();
+        $permission->fill($request->all())->save();
 
         return redirect()->route('show_permission', [
             'id' => $permission->id
@@ -86,5 +80,16 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
 
         return view('admin.permissions.show', compact('permission'));
+    }
+
+    /**
+     * @param Permission $permission
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Permission $permission)
+    {
+        $permission->delete();
+
+        return redirect()->route('list_permissions');
     }
 }

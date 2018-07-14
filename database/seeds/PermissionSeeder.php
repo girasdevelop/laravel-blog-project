@@ -12,40 +12,54 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create([
-            'name' => 'Total administrate',
-            'slug' => 'total-administrate',
-            'description' => 'Total administrate of users and content',
-        ]);
+        $this->createRecord(
+            'Total administrate',
+            'total-administrate',
+            'Total administrate of users and content'
+        );
 
-        Permission::create([
-            'name' => 'View record',
-            'slug' => 'view-record',
-            'description' => 'Permission to view record',
-        ]);
+        $this->createRecord(
+            'View record',
+            'view-record',
+            'Permission to view record'
+        );
 
-        Permission::create([
-            'name' => 'Create record',
-            'slug' => 'create-record',
-            'description' => 'Permission to create record',
-        ]);
+        $this->createRecord(
+            'Create record',
+            'create-record',
+            'Permission to create record'
+        );
 
-        Permission::create([
-            'name' => 'Update record',
-            'slug' => 'update-record',
-            'description' => 'Permission to update record',
-        ]);
+        $this->createRecord(
+            'Update record',
+            'update-record',
+            'Permission to update record'
+        );
 
-        Permission::create([
-            'name' => 'Delete record',
-            'slug' => 'delete-record',
-            'description' => 'Permission to delete record',
-        ]);
+        $this->createRecord(
+            'Delete record',
+            'delete-record',
+            'Permission to delete record'
+        );
 
+        $this->createRecord(
+            'Publish record',
+            'publish-record',
+            'Permission to publish record'
+        );
+    }
+
+    /**
+     * @param string $name
+     * @param string $slug
+     * @param string $description
+     */
+    private function createRecord(string $name, string $slug, string $description)
+    {
         Permission::create([
-            'name' => 'Publish record',
-            'slug' => 'publish-record',
-            'description' => 'Permission to publish record',
+            'name' => $name,
+            'slug' => $slug,
+            'description' => $description,
         ]);
     }
 }

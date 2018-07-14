@@ -21,4 +21,13 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class, 'role_permission', 'permission_id', 'role_id')->withTimestamps();
     }
+
+    /**
+     * @param $value
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+        $this->attributes['slug'] = str_slug(strtolower($value));
+    }
 }

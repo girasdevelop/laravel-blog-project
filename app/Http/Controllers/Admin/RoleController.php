@@ -35,6 +35,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
+
         return view('admin.roles.create', compact('permissions'));
     }
 
@@ -44,11 +45,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        $data = $request->only('name', 'description', 'permissions');
-        $data['slug'] = str_slug($data['name']);
-        $data['permissions'] = json_encode($data['permissions']);
-
-        Role::create($data);
+        Role::create($request->all());
 
         return redirect()->route('list_roles');
     }
@@ -59,7 +56,9 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit', compact('role'));
+        $permissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
+
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -69,11 +68,7 @@ class RoleController extends Controller
      */
     public function update(Role $role, UpdateRoleRequest $request)
     {
-        $data = $request->only('name', 'description', 'permissions');
-        $data['slug'] = str_slug($data['name']);
-        $data['permissions'] = json_encode($data['permissions']);
-
-        $role->fill($data)->save();
+        $role->fill($request->all())->save();
 
         return redirect()->route('show_role', [
             'id' => $role->id
@@ -89,5 +84,16 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         return view('admin.roles.show', compact('role'));
+    }
+
+    /**
+     * @param Role $role
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Role $role)
+    {
+        $role->delete();
+
+        return redirect()->route('list_roles');
     }
 }

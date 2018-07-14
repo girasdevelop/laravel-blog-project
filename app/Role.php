@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description',
+        'name', 'slug', 'description', 'permissions'
     ];
 
     /**
@@ -51,5 +51,22 @@ class Role extends Model
     {
         //return $this->permissions[$permission] ?? false;
         return true;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+        $this->attributes['slug'] = str_slug(strtolower($value));
+    }
+
+    /**
+     * @param $value
+     */
+    public function setPermissionsAttribute($value)
+    {
+        $this->permissions()->sync($value);
     }
 }
