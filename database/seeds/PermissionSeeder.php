@@ -13,19 +13,33 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         Permission::create([
+            'name' => 'View record',
+            'slug' => 'view-record',
+            'description' => 'Permission to view record',
+        ]);
+
+        Permission::create([
             'name' => 'Create record',
-            'slug' => 'create_record',
+            'slug' => 'create-record',
             'description' => 'Permission to create record',
         ]);
+
         Permission::create([
             'name' => 'Update record',
-            'slug' => 'update_record',
+            'slug' => 'update-record',
             'description' => 'Permission to update record',
         ]);
+
         Permission::create([
             'name' => 'Delete record',
-            'slug' => 'delete_record',
+            'slug' => 'delete-record',
             'description' => 'Permission to delete record',
+        ]);
+
+        Permission::create([
+            'name' => 'Publish record',
+            'slug' => 'publish-record',
+            'description' => 'Permission to publish record',
         ]);
     }
 }
