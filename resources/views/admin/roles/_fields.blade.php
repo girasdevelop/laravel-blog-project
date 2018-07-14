@@ -31,8 +31,8 @@
 
     <div class="container">
         <div class="row">
-            @foreach($permissions as $id => $name)
-                <input type="checkbox" name="permissions[]" value="{{ $id }}">{{ $name }}<br>
+            @foreach($allPermissions as $id => $name)
+                <input type="checkbox" name="permissions[]" value="{{ $id }}" @if(in_array($id, $currentPermissions)) checked @endif >{{ $name }}<br>
             @endforeach
         </div>
     </div>
