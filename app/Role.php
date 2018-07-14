@@ -58,7 +58,7 @@ class Role extends Model
      */
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = strtolower($value);
+        $this->attributes['name'] = $value;
         $this->attributes['slug'] = str_slug(strtolower($value));
     }
 

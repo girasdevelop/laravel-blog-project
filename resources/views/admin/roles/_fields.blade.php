@@ -32,7 +32,7 @@
     <div class="container">
         <div class="row">
             @foreach($allPermissions as $id => $name)
-                <input type="checkbox" name="permissions[]" value="{{ $id }}" @if(in_array($id, $currentPermissions)) checked @endif >{{ $name }}<br>
+                <input type="checkbox" name="permissions[]" value="{{ $id }}" @if(isset($currentPermissions) && in_array($id, $currentPermissions)) checked @endif >{{ $name }}<br>
             @endforeach
         </div>
     </div>

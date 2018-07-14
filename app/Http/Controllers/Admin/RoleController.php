@@ -34,9 +34,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
+        $allPermissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
 
-        return view('admin.roles.create', compact('permissions'));
+        return view('admin.roles.create', compact('allPermissions'));
     }
 
     /**
@@ -57,7 +57,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $allPermissions = Permission::orderBy('id', 'desc')->pluck('name', 'id');
-        $currentPermissions = $role->permissions->pluck('id')->toArray();
+        $currentPermissions = old('permissions') ? old('permissions') : $role->permissions->pluck('id')->toArray();
 
         return view('admin.roles.edit', compact('role', 'allPermissions', 'currentPermissions'));
     }
