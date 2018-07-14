@@ -12,6 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        $totalPermissionId   = Permission::where('slug', 'total-administrate')->firstOrFail()->id;
         $viewPermissionId    = Permission::where('slug', 'view-record')->firstOrFail()->id;
         $createPermissionId  = Permission::where('slug', 'create-record')->firstOrFail()->id;
         $updatePermissionId  = Permission::where('slug', 'update-record')->firstOrFail()->id;
@@ -23,6 +24,22 @@ class RoleSeeder extends Seeder
             'slug' => 'admin',
             'description' => 'Administrator',
         ])->permissions()->attach([
+            $totalPermissionId, $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
+        ]);
+
+        Role::create([
+            'name' => 'Editor',
+            'slug' => 'editor',
+            'description' => 'Post editor',
+        ])->permissions()->attach([
+            $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
+        ]);
+
+        Role::create([
+            'name' => 'Manager',
+            'slug' => 'manager',
+            'description' => 'Content manager',
+        ])->permissions()->attach([
             $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId, $publishPermissionId
         ]);
 
@@ -31,25 +48,15 @@ class RoleSeeder extends Seeder
             'slug' => 'author',
             'description' => 'Post author',
         ])->permissions()->attach([
-            1, 2, 3, 4
+            $viewPermissionId, $createPermissionId, $updatePermissionId, $deletePermissionId
         ]);
 
         Role::create([
-            'name' => 'Editor',
-            'slug' => 'editor',
-            'description' => 'Post editor',
-        ]);
-
-        Role::create([
-            'name' => 'Manager',
-            'slug' => 'manager',
-            'description' => 'Content manager',
-        ]);
-
-        Role::create([
-            'name' => 'Guest',
-            'slug' => 'quest',
-            'description' => 'Guest for content',
+            'name' => 'User',
+            'slug' => 'user',
+            'description' => 'Simple user',
+        ])->permissions()->attach([
+            $viewPermissionId
         ]);
     }
 }

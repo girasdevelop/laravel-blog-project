@@ -13,6 +13,12 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         Permission::create([
+            'name' => 'Total administrate',
+            'slug' => 'total-administrate',
+            'description' => 'Total administrate of users and content',
+        ]);
+
+        Permission::create([
             'name' => 'View record',
             'slug' => 'view-record',
             'description' => 'Permission to view record',
