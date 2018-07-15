@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description', 'permissions'
+        'name', 'slug', 'description'
     ];
+
+    protected $appends = ['permissions'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -23,9 +25,27 @@ class Role extends Model
     }
 
     /**
+     * @param $value
+     */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = str_slug(strtolower($value));
+    }
+
+    /**
+     * @param $value
+     */
+    public function setPermissionsAttribute($value)
+    {
+        //$this->permissions->sync($value);
+        $this->attributes['permissions'] = $value;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function permissions()
+    public function getPermissionsAttribute()
     {
         return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id')->withTimestamps();
     }
@@ -51,22 +71,5 @@ class Role extends Model
     {
         //return $this->permissions[$permission] ?? false;
         return true;
-    }
-
-    /**
-     * @param $value
-     */
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = str_slug(strtolower($value));
-    }
-
-    /**
-     * @param $value
-     */
-    public function setPermissionsAttribute($value)
-    {
-        $this->permissions()->sync($value);
     }
 }
