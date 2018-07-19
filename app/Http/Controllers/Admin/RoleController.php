@@ -8,8 +8,6 @@ use App\Http\Requests\{
     StoreRole as StoreRoleRequest,
     UpdateRole as UpdateRoleRequest
 };
-use Auth;
-use Gate;
 use App\{Role, Permission};
 
 /**
@@ -23,7 +21,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id', 'asc')
+        $roles = Role::with('permissions')->orderBy('id', 'asc')
             ->paginate(Config::get('app.paginate.main'));
 
         return view('admin.roles.index', compact('roles'));

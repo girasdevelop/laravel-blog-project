@@ -11,6 +11,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Permissions</th>
                     <th class="action-column">Actions</th>
                 </tr>
                 </thead>
@@ -22,6 +23,11 @@
                             </td>
                             <td>
                                 {{ $role->description }}
+                            </td>
+                            <td>
+                                @foreach($role->permissions as $permission)
+                                    <a href="{{ route('show_permission', ['id' => $permission->id]) }}">{{ $permission->name }}</a> <br>
+                                @endforeach
                             </td>
                             <td>
                                 <a href="{{ route('show_role', ['id' => $role->id]) }}" title="View" aria-label="View">

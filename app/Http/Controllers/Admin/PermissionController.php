@@ -8,8 +8,6 @@ use App\Http\Requests\{
     StorePermission as StorePermissionRequest,
     UpdatePermission as UpdatePermissionRequest
 };
-use Auth;
-use Gate;
 use App\Permission;
 
 /**

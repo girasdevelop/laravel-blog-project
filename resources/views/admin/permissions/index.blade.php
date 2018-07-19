@@ -10,6 +10,7 @@
             <table class="table table-striped table-bordered"><thead>
                 <tr>
                     <th>Name</th>
+                    <th>Slug</th>
                     <th>Description</th>
                     <th class="action-column">Actions</th>
                 </tr>
@@ -19,6 +20,9 @@
                         <tr>
                             <td>
                                 <a href="{{ route('show_permission', ['id' => $permission->id]) }}">{{ $permission->name }}</a>
+                            </td>
+                            <td>
+                                {{ $permission->slug }}
                             </td>
                             <td>
                                 {{ $permission->description }}

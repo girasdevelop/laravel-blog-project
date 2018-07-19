@@ -10,11 +10,12 @@
                 <a class="btn btn-danger" href="{{ route('delete_role', ['id' => $role->id]) }}" title="Delete" aria-label="Delete" data-confirm="Are you sure you want to delete this item?" data-method="post">Delete role</a>
             </p>
 
-            <table class="table table-striped table-bordered"><thead>
-                <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </tr>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Value</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -28,6 +29,14 @@
                     <tr>
                         <td>Description</td>
                         <td>{{ $role->description }}</td>
+                    </tr>
+                    <tr>
+                        <td>Permissions</td>
+                        <td>
+                            @foreach($role->permissions as $permission)
+                                <a href="{{ route('show_permission', ['id' => $permission->id]) }}">{{ $permission->name }}</a> <br>
+                            @endforeach
+                        </td>
                     </tr>
                 </tbody>
             </table>

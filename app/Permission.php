@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Permission extends Model
 {
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name', 'slug', 'description',
     ];
@@ -24,6 +27,7 @@ class Permission extends Model
 
     /**
      * @param $value
+     * @return void
      */
     public function setNameAttribute($value)
     {

@@ -13,8 +13,8 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $this->createRecord(
-            'Total administrate',
-            'total-administrate',
+            'Administrate',
+            'administrate',
             'Total administrate of users and content'
         );
 

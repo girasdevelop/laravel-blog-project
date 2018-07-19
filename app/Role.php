@@ -10,11 +10,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Role extends Model
 {
+    /**
+     * @var array
+     */
     protected $fillable = [
-        'name', 'slug', 'description'
+        'name', 'slug', 'description', 'permissions'
     ];
 
-    protected $appends = ['permissions'];
+    /**
+     * @var array
+     */
+    private $_permissions;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -26,6 +32,7 @@ class Role extends Model
 
     /**
      * @param $value
+     * @return void
      */
     public function setNameAttribute($value)
     {
@@ -35,17 +42,17 @@ class Role extends Model
 
     /**
      * @param $value
+     * @return void
      */
     public function setPermissionsAttribute($value)
     {
-        //$this->permissions->sync($value);
-        $this->attributes['permissions'] = $value;
+        $this->_permissions = $value;
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getPermissionsAttribute()
+    public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id')->withTimestamps();
     }
@@ -69,7 +76,22 @@ class Role extends Model
      */
     private function hasPermission(string $permission) : bool
     {
-        //return $this->permissions[$permission] ?? false;
-        return true;
+        return in_array($permission, $this->permissions()->pluck('slug')->toArray());
+    }
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $saved = parent::save($options);
+
+        if ($saved) {
+            $this->permissions()->sync($this->_permissions);
+            return true;
+        }
+
+        return false;
     }
 }
