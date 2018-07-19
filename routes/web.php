@@ -109,4 +109,25 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::post('/delete/{permission}', 'PermissionController@delete')
             ->name('delete_permission');
     });
+
+    /**
+     * Users
+     */
+    Route::group(['prefix' => 'users'], function () {
+
+        Route::get('/', 'UserController@index')
+            ->name('list_users');
+
+        Route::get('/show/{id}', 'UserController@show')
+            ->name('show_user');
+
+        Route::get('/edit/{user}', 'UserController@edit')
+            ->name('edit_user');
+
+        Route::post('/update/{user}', 'UserController@update')
+            ->name('update_user');
+
+        Route::post('/delete/{user}', 'UserController@delete')
+            ->name('delete_user');
+    });
 });

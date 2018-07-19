@@ -1,25 +1,53 @@
 <?php
-
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Interfaces\User as UserInterface;
 
 /**
  * Class User
  * @package App
  */
-class User extends Authenticatable
+class User extends Authenticatable implements UserInterface
 {
     use Notifiable;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'roles'
     ];
 
+    /**
+     * @var array
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @var array
+     */
+    private $_roles;
+
+    /**
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->attributes['name'];
+    }
+
+    /**
+     * @param $value
+     * @return void
+     */
+    public function setRolesAttribute($value): void
+    {
+        $this->_roles = $value;
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -54,5 +82,21 @@ class User extends Authenticatable
     public function inRole(string $roleSlug)
     {
         return $this->roles()->where('slug', $roleSlug)->count() == 1;
+    }
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $saved = parent::save($options);
+
+        if ($saved) {
+            $this->roles()->sync($this->_roles);
+            return true;
+        }
+
+        return false;
     }
 }

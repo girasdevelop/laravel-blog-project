@@ -1,9 +1,12 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class StoreRole
+ * @package App\Http\Requests
+ */
 class StoreRole extends FormRequest
 {
     /**

@@ -119,6 +119,11 @@ return [
             'icon' => 'fa fa-user-secret',
             'url'  => '/admin/permissions',
         ],
+        [
+            'text' => 'Users',
+            'icon' => 'fa fa-users',
+            'url'  => '/admin/users',
+        ],
     ],
 
     /*
