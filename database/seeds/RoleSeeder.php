@@ -12,7 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $totalPermissionId   = Permission::where('slug', 'total-administrate')->firstOrFail()->id;
+        $totalPermissionId   = Permission::where('slug', 'administrate')->firstOrFail()->id;
         $viewPermissionId    = Permission::where('slug', 'view-record')->firstOrFail()->id;
         $createPermissionId  = Permission::where('slug', 'create-record')->firstOrFail()->id;
         $updatePermissionId  = Permission::where('slug', 'update-record')->firstOrFail()->id;
