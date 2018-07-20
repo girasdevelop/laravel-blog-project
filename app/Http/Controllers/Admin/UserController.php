@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUser as UpdateUserRequest;
-use App\{Role, User};
 use App\Helpers\Helper;
+use App\Role;
 
 /**
  * Class UserController

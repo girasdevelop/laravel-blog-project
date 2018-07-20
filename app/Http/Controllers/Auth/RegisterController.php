@@ -75,6 +75,9 @@ class RegisterController extends Controller
         return $user;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showRegistrationForm()
     {
         $roles = Role::orderBy('name')->pluck('name', 'id');
