@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-4">
 
-                    <h1>Assign user roles</h1>
+                    <h1>Assign user roles for: {{ $user->name }}</h1>
 
                     <form action="{{ route('update_user', ['user' => $user->id]) }}" method="post">
 

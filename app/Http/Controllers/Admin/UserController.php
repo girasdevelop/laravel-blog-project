@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUser as UpdateUserRequest;
 use App\{Role, User};
-use App\Interfaces\User as UserInterface;
+use App\Helpers\Helper;
 
 /**
  * Class UserController
@@ -13,6 +13,21 @@ use App\Interfaces\User as UserInterface;
  */
 class UserController extends Controller
 {
+    /**
+     * @var string
+     */
+    private $userModelClass;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->userModelClass = config('rbac.userModelClass');
+
+        Helper::checkUserInstance($this->userModelClass);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

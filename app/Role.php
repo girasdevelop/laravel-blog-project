@@ -2,6 +2,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\InvalidConfigException;
+use App\Helpers\Helper;
 
 /**
  * Class Role
@@ -17,16 +19,35 @@ class Role extends Model
     ];
 
     /**
+     * @var string
+     */
+    private $userModelClass;
+
+    /**
      * @var array
      */
-    private $_permissions;
+    private $permissions;
+
+    /**
+     * Role constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        $this->userModelClass = config('rbac.userModelClass');
+
+        parent::__construct($attributes);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @throws InvalidConfigException
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id')->withTimestamps();
+        Helper::checkUserInstance($this->userModelClass);
+
+        return $this->belongsToMany($this->userModelClass, 'role_user', 'role_id', 'user_id')->withTimestamps();
     }
 
     /**
@@ -45,7 +66,7 @@ class Role extends Model
      */
     public function setPermissionsAttribute($value)
     {
-        $this->_permissions = $value;
+        $this->permissions = $value;
     }
 
     /**
@@ -87,7 +108,7 @@ class Role extends Model
         $saved = parent::save($options);
 
         if ($saved) {
-            $this->permissions()->sync($this->_permissions);
+            $this->permissions()->sync($this->permissions);
             return true;
         }
 

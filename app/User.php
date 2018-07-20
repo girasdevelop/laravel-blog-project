@@ -33,6 +33,14 @@ class User extends Authenticatable implements UserInterface
     private $_roles;
 
     /**
+     * @return int
+     */
+    public function getIdAttribute(): int
+    {
+        return $this->attributes['id'];
+    }
+
+    /**
      * @return string
      */
     public function getNameAttribute(): string
