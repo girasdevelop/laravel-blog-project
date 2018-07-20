@@ -121,13 +121,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         Route::get('/show/{id}', 'UserController@show')
             ->name('show_user');
 
-        Route::get('/edit/{user}', 'UserController@edit')
+        Route::get('/edit/{id}', 'UserController@edit')
             ->name('edit_user');
 
-        Route::post('/update/{user}', 'UserController@update')
+        Route::post('/update/{id}', 'UserController@update')
             ->name('update_user');
 
-        Route::post('/delete/{user}', 'UserController@delete')
+        Route::post('/delete/{id}', 'UserController@delete')
             ->name('delete_user');
     });
 });

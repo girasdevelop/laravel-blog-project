@@ -28,9 +28,6 @@
                                 @foreach($role->permissions as $permission)
                                     <a href="{{ route('show_permission', ['id' => $permission->id]) }}">{{ $permission->name }}</a> <br>
                                 @endforeach
-                                @foreach($role->users as $user)
-                                    <a href="{{ route('show_user', ['id' => $user->id]) }}">{{ $user->name }}</a> <br>
-                                @endforeach
                             </td>
                             <td>
                                 <a href="{{ route('show_role', ['id' => $role->id]) }}" title="View" aria-label="View">

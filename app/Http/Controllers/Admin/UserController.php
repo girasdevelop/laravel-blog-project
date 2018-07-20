@@ -33,18 +33,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->orderBy('id', 'asc')
+        $users = call_user_func([
+            $this->userModelClass,
+            'with',
+        ], 'roles')->orderBy('id', 'asc')
             ->paginate(Config::get('app.paginate.main'));
 
         return view('admin.users.index', compact('users'));
     }
 
     /**
-     * @param User $user
+     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit(int $id)
     {
+        $user = $this->findOrFail($id);
+
         $allRoles = Role::orderBy('id', 'desc')->pluck('name', 'id');
         $currentRoles = old('roles') ? old('roles') : $user->roles->pluck('id')->toArray();
 
@@ -52,16 +57,18 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param int $id
      * @param UpdateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(User $user, UpdateUserRequest $request)
+    public function update(int $id, UpdateUserRequest $request)
     {
-        $user->fill($request->all())->save();
+        $this->findOrFail($id)
+            ->fill($request->all())
+            ->save();
 
         return redirect()->route('show_user', [
-            'id' => $user->id
+            'id' => $id
         ]);
     }
 
@@ -71,19 +78,31 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->findOrFail($id);
 
         return view('admin.users.show', compact('user'));
     }
 
     /**
-     * @param User $user
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete(User $user)
+    public function delete(int $id)
     {
-        $user->delete();
+        $this->findOrFail($id)->delete();
 
         return redirect()->route('list_users');
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    private function findOrFail(int $id)
+    {
+        return call_user_func([
+            $this->userModelClass,
+            'findOrFail',
+        ], $id);
     }
 }
