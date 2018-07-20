@@ -3,13 +3,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Interfaces\User as UserInterface;
+use Itstructure\LaRbac\Contracts\User as RbacUserContract;
+use Itstructure\LaRbac\Models\Role;
 
 /**
  * Class User
  * @package App
  */
-class User extends Authenticatable implements UserInterface
+class User extends Authenticatable implements RbacUserContract
 {
     use Notifiable;
 
@@ -87,7 +88,7 @@ class User extends Authenticatable implements UserInterface
      * @param string $roleSlug
      * @return bool
      */
-    public function inRole(string $roleSlug)
+    public function inRole(string $roleSlug): bool
     {
         return $this->roles()->where('slug', $roleSlug)->count() == 1;
     }
