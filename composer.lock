@@ -372,7 +372,7 @@
             "dist": {
                 "type": "path",
                 "url": "../laravel-rbac",
-                "reference": "edf7b1159c767ab491f1d106acfe41254a52c541",
+                "reference": "3bf595580962305c98069884223ac3a09da7150c",
                 "shasum": null
             },
             "require": {
