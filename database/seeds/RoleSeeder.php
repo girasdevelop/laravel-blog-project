@@ -5,6 +5,7 @@ use Itstructure\LaRbac\Models\{Role, Permission};
 
 /**
  * Class RoleSeeder
+ * @author Andrey Girnik <girnikandrey@gmail.com>
  */
 class RoleSeeder extends Seeder
 {

@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 /**
  * Class CreateRolePermissionTable
+ * @author Andrey Girnik <girnikandrey@gmail.com>
  */
 class CreateRolePermissionTable extends Migration
 {

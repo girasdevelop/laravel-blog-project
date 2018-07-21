@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 /**
  * Class LaRbacDatabaseSeeder
+ * @author Andrey Girnik <girnikandrey@gmail.com>
  */
 class LaRbacDatabaseSeeder extends Seeder
 {

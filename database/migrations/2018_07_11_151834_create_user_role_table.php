@@ -7,9 +7,10 @@ use Itstructure\LaRbac\Helpers\Helper;
 use Itstructure\LaRbac\Exceptions\InvalidConfigException;
 
 /**
- * Class CreateRoleUserTable
+ * Class CreateUserRoleTable
+ * @author Andrey Girnik <girnikandrey@gmail.com>
  */
-class CreateRoleUserTable extends Migration
+class CreateUserRoleTable extends Migration
 {
     /**
      * @var string
@@ -46,7 +47,7 @@ class CreateRoleUserTable extends Migration
 
         $userModelTable = $userModel->getTable();
 
-        Schema::create('role_user', function (Blueprint $table) use ($userModelKeyName, $userModelTable) {
+        Schema::create('user_role', function (Blueprint $table) use ($userModelKeyName, $userModelTable) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('role_id');
             $table->timestamps();
@@ -63,6 +64,6 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('user_role');
     }
 }

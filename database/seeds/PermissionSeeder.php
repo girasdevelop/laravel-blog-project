@@ -5,6 +5,7 @@ use Itstructure\LaRbac\Models\Permission;
 
 /**
  * Class PermissionSeeder
+ * @author Andrey Girnik <girnikandrey@gmail.com>
  */
 class PermissionSeeder extends Seeder
 {
