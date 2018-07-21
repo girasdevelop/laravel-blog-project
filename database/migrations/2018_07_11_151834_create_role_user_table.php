@@ -23,7 +23,7 @@ class CreateRoleUserTable extends Migration
     {
         $this->userModelClass = config('rbac.userModelClass');
 
-        Helper::checkUserInstance($this->userModelClass);
+        Helper::checkUserModel($this->userModelClass);
     }
 
     /**
