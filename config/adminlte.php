@@ -112,17 +112,17 @@ return [
         [
             'text' => 'Roles',
             'icon' => 'fa fa-user-circle-o',
-            'url'  => '/admin/roles',
+            'url'  => '/rbac/roles',
         ],
         [
             'text' => 'Permissions',
             'icon' => 'fa fa-user-secret',
-            'url'  => '/admin/permissions',
+            'url'  => '/rbac/permissions',
         ],
         [
             'text' => 'Users',
             'icon' => 'fa fa-users',
-            'url'  => '/admin/users',
+            'url'  => '/rbac/users',
         ],
     ],
 
