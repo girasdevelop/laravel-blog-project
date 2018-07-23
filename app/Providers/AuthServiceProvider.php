@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Itstructure\LaRbac\Models\Permission;
 use App\{User, Post};
 
 class AuthServiceProvider extends ServiceProvider
@@ -52,7 +53,7 @@ class AuthServiceProvider extends ServiceProvider
          */
         Gate::define('administrate', function ($user) {
             /* @var User $user */
-            return $user->hasAccess(['administrate']);
+            return $user->hasAccess([Permission::ADMIN_PERMISSION]);
         });
     }
 }
